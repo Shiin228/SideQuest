@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* SideQuest palette — dark guild hall with the original #88b649 green as the accent. */
+  --color-canvas: #0d0f0e;
+  --color-surface: #151816;
+  --color-surface-2: #1c201e;
+  --color-surface-3: #252a27;
+  --color-line: #2a302d;
+  --color-line-strong: #3a423e;
+  --color-ink: #eef2ef;
+  --color-ink-soft: #c4cbc6;
+  --color-muted: #8d968f;
+  --color-faint: #5f6862;
+
+  --color-brand: #88b649;
+  --color-brand-strong: #a3d063;
+  --color-brand-soft: #88b6491f;
+  --color-brand-ink: #0d1606;
+
+  --color-sky: #6cc4ff;
+  --color-amber: #f5b84a;
+  --color-violet: #b69cff;
+  --color-danger: #ff7a7a;
+
+  --radius-card: 1.25rem;
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-caret: caret 1s steps(1) infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: var(--color-brand-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.75);
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Soft green glow + faint grid behind every page. */
+  .bg-guild {
+    background-image:
+      radial-gradient(60rem 30rem at 15% -10%, #88b64922, transparent 60%),
+      radial-gradient(40rem 24rem at 100% 0%, #6cc4ff12, transparent 60%),
+      linear-gradient(to right, #ffffff06 1px, transparent 1px),
+      linear-gradient(to bottom, #ffffff06 1px, transparent 1px);
+    background-size:
+      auto,
+      auto,
+      44px 44px,
+      44px 44px;
+    background-attachment: fixed;
+  }
+
+  .card {
+    @apply rounded-(--radius-card) border border-line bg-surface/80 backdrop-blur-sm;
+    box-shadow:
+      0 1px 0 0 #ffffff08 inset,
+      0 10px 30px -12px #00000080;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line bg-surface-2 px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-faint transition;
+    @apply hover:border-line-strong focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/15;
+  }
+
+  .field[aria-invalid="true"] {
+    @apply border-danger/70 focus:border-danger focus:ring-danger/15;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

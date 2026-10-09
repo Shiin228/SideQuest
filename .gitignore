@@ -1,0 +1,20 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# env files (keep the example)
+.env*
+!.env.example
+
+# uploaded proof files (keep the folder)
+/uploads/*
+!/uploads/.gitkeep
+
+# misc
+.DS_Store
+*.log
